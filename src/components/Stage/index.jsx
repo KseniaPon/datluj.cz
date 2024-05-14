@@ -19,12 +19,9 @@ const generateWord = (size) => {
 
 const Stage = () => {
   const [words, setWords] = useState(['jahoda']);
-  console.log(words)
+
   const handleFinish = () => {
-    console.log('finish!!!')
-    const a = generateWord(6)
-    console.log(a)
-    setWords([a])
+    setWords([generateWord()])
   }
 
   return (
