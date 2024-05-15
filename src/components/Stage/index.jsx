@@ -29,25 +29,31 @@ const selectionInit = (size) => {
 
 const Stage = () => {
   const [words, setWords] = useState(selectionInit(userSize));
+  const [countMistakes, setCountMistakes] = useState(0);
+  
+  const handleMistake = () => {
+    setCountMistakes(countMistakes + 1)
+  }
 
   const handleFinish = () => {
-    // console.log('finish')
     const a = [...words]
     a.splice(0,1)
-    
-    // console.log(typeof a)
-    // console.log(typeof words)
     a.push(generateWord(3))
     setWords([...a])
-    
-    
   }
-  console.log(words[0])
+
   return (
     <div className="stage">
-      <div className="stage__mistakes">Chyb: 0</div>
+      <div className="stage__mistakes">Chyb: {countMistakes}</div>
       <div className="stage__words">
-        {words.map((word, i) => <Wordbox word={word} key={word} onFinish={handleFinish} active={i === 0} id={i}/>)}
+        {words.map((word, i) => 
+        <Wordbox
+        word={word}
+        key={word}
+        onFinish={handleFinish}
+        active={i === 0}
+        onMistake={handleMistake}
+        />)}
       </div>
     </div>
   );
