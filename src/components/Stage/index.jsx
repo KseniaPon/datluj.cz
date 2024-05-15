@@ -17,18 +17,37 @@ const generateWord = (size) => {
   return words[wordIndex];
 };
 
+const userSize = 3;
+
+const selectionInit = (size) => {
+  const selection = []
+  for (var i=0;i<3;i++) {
+    selection.push(generateWord(size))
+  }
+  return selection;
+}
+
 const Stage = () => {
-  const [words, setWords] = useState(['jahoda']);
+  const [words, setWords] = useState(selectionInit(userSize));
 
   const handleFinish = () => {
-    setWords([generateWord()])
+    // console.log('finish')
+    const a = [...words]
+    a.splice(0,1)
+    
+    // console.log(typeof a)
+    // console.log(typeof words)
+    a.push(generateWord(3))
+    setWords([...a])
+    
+    
   }
-
+  console.log(words[0])
   return (
     <div className="stage">
       <div className="stage__mistakes">Chyb: 0</div>
       <div className="stage__words">
-        {words.map((word) => <Wordbox word={word} key={word} onFinish={handleFinish}/>)}
+        {words.map((word, i) => <Wordbox word={word} key={word} onFinish={handleFinish} active={i === 0} id={i}/>)}
       </div>
     </div>
   );
